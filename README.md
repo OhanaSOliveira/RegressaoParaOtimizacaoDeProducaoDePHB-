@@ -1,62 +1,64 @@
-# **Análise de Produção de PHB por Cepas**  
+# **PHB Production Analysis by Strains**  
 
-## **1. Contexto**  
-O polihidroxibutirato (PHB) é um biopolímero biodegradável produzido naturalmente por bactérias como reserva de carbono e energia. Por ser uma alternativa sustentável aos plásticos derivados de petróleo, há um grande interesse em otimizar sua produção industrial. No entanto, a síntese natural de PHB apresenta limitações, como desvio de carbono para subprodutos e dependência de condições ideais de fermentação.  
+## **1. Context**  
+Polyhydroxybutyrate (PHB) is a biodegradable biopolymer naturally produced by bacteria as a carbon and energy reserve. Because it is a sustainable alternative to petroleum-based plastics, there is strong interest in optimizing its industrial production. However, natural PHB synthesis has limitations, such as carbon diversion to by-products and dependence on ideal fermentation conditions.  
 
-Este projeto tem como objetivo **analisar e identificar condições de fermentação que maximizem a produção de PHB**, comparando diferentes cepas e condições (pH, temperatura e oxigenação) usando dados simulados baseados na literatura científica.
-
----
-
-## **2. Conjunto de Dados**  
-Os dados simulam medições de **6 cepas bacterianas** (WT, C1, C2, C3, C4 e C5) ao longo de 72 horas, em intervalos de 2 horas, considerando as seguintes variáveis:  
-- **Tempo_h:** tempo do cultivo (h).  
-- **Glicose_gL:** concentração de glicose (g/L).  
-- **PHB_gL:** concentração acumulada de PHB (g/L).  
-- **OD600:** densidade óptica, que indica biomassa celular.  
-- **pH, Temperatura_C, Oxigenacao_%:** condições de fermentação.  
+This project aims to **analyze and identify fermentation conditions that maximize PHB production**, comparing different strains and conditions (pH, temperature, and oxygenation) using simulated data based on the scientific literature.
 
 ---
 
-## **3. Principais Funções e Métricas**  
+## **2. Dataset**  
+The data simulate measurements of **6 bacterial strains** (WT, C1, C2, C3, C4, and C5) over 72 hours, in 2-hour intervals, considering the following variables:  
+- **Tempo_h:** cultivation time (h).  
+- **Glicose_gL:** glucose concentration (g/L).  
+- **PHB_gL:** accumulated PHB concentration (g/L).  
+- **OD600:** optical density, indicating cell biomass.  
+- **pH, Temperatura_C, Oxigenacao_%:** fermentation conditions.  
 
-### **3.1 Função T90**  
-Calcula o tempo mínimo para uma cepa atingir 90% do valor máximo de PHB, permitindo avaliar a rapidez do processo.  
+---
 
-### **3.2 Função de Métricas**  
-Agrupa os dados por cepa e calcula:  
-- **PHB_final_gL:** produção final de PHB.  
-- **Glicose_consumida_gL:** diferença entre glicose inicial e final.  
-- **Rendimento_PHB_por_gGlicose:** eficiência de conversão (g PHB/g glicose).  
-- **OD_final:** biomassa final.  
-- **T90_h:** tempo para atingir 90% do PHB máximo.  
-- **Produtividade_media_gL_h:** média de produção por hora.  
+## **3. Main Functions and Metrics**  
 
-As cepas são ranqueadas de acordo com o PHB final.  
+### **3.1 T90 Function**  
+Calculates the minimum time required for a strain to reach 90% of the maximum PHB value, allowing assessment of process speed.  
 
+### **3.2 Metrics Function**  
+Groups data by strain and calculates:  
+- **PHB_final_gL:** final PHB production.  
+- **Glicose_consumida_gL:** difference between initial and final glucose.  
+- **Rendimento_PHB_por_gGlicose:** conversion efficiency (g PHB/g glucose).  
+- **OD_final:** final biomass.  
+- **T90_h:** time to reach 90% of maximum PHB.  
+- **Produtividade_media_gL_h:** average hourly productivity.  
 
-## **4. Análises Estatísticas**  
+Strains are ranked according to final PHB production.  
 
-### **4.1 Correlação**  
-O heatmap de correlação mostrou que poucas variáveis têm relação linear forte com o PHB final, indicando a natureza multifatorial do processo. Oxigenação e rendimento de glicose apresentam impacto moderado, enquanto pH e temperatura exibem baixa correlação.  
+---
 
-### **4.2 Regressão Linear**  
-A regressão múltipla apresentou a seguinte equação:  
+## **4. Statistical Analyses**  
+
+### **4.1 Correlation**  
+The correlation heatmap showed that few variables have a strong linear relationship with final PHB, reinforcing the multifactorial nature of the process. Oxygenation and glucose yield present moderate impact, while pH and temperature show low correlation.  
+
+### **4.2 Linear Regression**  
+The multiple regression model produced the following equation:  
 PHB_gL = 12.62 - 0.17 * pH - 0.02 * Temperatura_C + 0.03 * Oxigenacao_% - 0.24 * Glicose_gL + 1.84 * OD600
 
-- **Oxigenação** foi o fator mais positivo.  
-- **Temperatura** teve impacto negativo leve.  
-- **pH** mostrou efeito intermediário, com melhor produção em valores neutros a levemente alcalinos.  
+- **Oxygenation** was the most positive factor.  
+- **Temperature** had a slight negative impact.  
+- **pH** showed an intermediate effect, with better production in neutral to slightly alkaline values.  
 
-O modelo prevê bem valores baixos e médios de PHB, mas subestima valores altos, sugerindo a necessidade de modelos não lineares.  
+The model predicts low and medium PHB values well but underestimates high values, suggesting the need for nonlinear models.  
 
 ---
 
-## **5. Resultados e Conclusões**  
-- **Condições ideais:**  
-  - pH entre **7.0 e 7.5**.  
-  - Temperatura entre **30°C e 35°C**, com tolerância até 40°C.  
-  - Oxigenação constante em **60%**.  
-  - Glicose entre **48 e 50 g/L**.  
-- **Cepa mais produtiva:** **C5**, com produtividade média de **0,0759 g PHB/h**.  
-- A análise confirma que a otimização simultânea de parâmetros é essencial e que métodos de modelagem mais complexos poderiam melhorar a previsão da produção.  
+## **5. Results and Conclusions**  
+- **Ideal conditions:**  
+  - pH between **7.0 and 7.5**.  
+  - Temperature between **30°C and 35°C**, with tolerance up to 40°C.  
+  - Constant oxygenation at **60%**.  
+  - Glucose between **48 and 50 g/L**.  
+- **Most productive strain:** **C5**, with an average productivity of **0.0759 g PHB/h**.  
+- The analysis confirms that simultaneous optimization of parameters is essential and that more complex modeling methods could improve production prediction.  
+
 
